@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:context="http://www.springframework.org/schema/context"
+		xmlns:mvc="http://springframework.org/schema/mvc"
+		xmlns:aop="http://www.springframework.org/schema/aop"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+                           http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd 
+                           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd ">
+     
+<bean id="dataSource"
+	class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	<property name="driverClassName" value="oracle.jdbc.OracleDriver" />
+	<property name="url" value="jdbc:oracle:thin://@127.0.0.1:1521:xe"/>
+	<property name="username" value="sumbab" />
+	<property name="password" value="1234"/>	
+</bean>
+
+<bean id="sqlSessionFactory"
+	class="org.mybatis.spring.SqlSessionFactoryBean">
+	<property name="dataSource" ref="dataSource"/>
+	<property name=	"mapperLocations">
+		<list>
+			<value>classpath:config/*Mapper.xml</value>
+		</list>
+	</property>
+</bean>
+
+<bean id="sqlSession"
+	class="org.mybatis.spring.SqlSessionTemplate">
+	<constructor-arg ref="sqlSessionFactory" />	
+</bean>
+
+<bean id="dao" 
+	class="com.sumbab.member.dao.MemberDaoMybatis">
+		<property name="sqlSession" ref="sqlSession"/>
+</bean>
+
+<bean class="com.sumbab.member.controller.MemberController">
+	<property name="memberservice" ref="memberservice"/>
+</bean>
+</beans>

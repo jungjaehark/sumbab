@@ -1,3 +1,0 @@
-INDEX VERSION 1.131
-C:\study\projectworkspace\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1685288425.index
-\sumbab\src\main\java
